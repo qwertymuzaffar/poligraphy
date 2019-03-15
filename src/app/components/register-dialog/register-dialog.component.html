@@ -1,0 +1,105 @@
+<div mat-dialog-title>
+  <img src="/assets/logo.png" alt="logo">
+  <button mat-icon-button (click)="dialogRef.close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div mat-dialog-content>
+  <div class="user-type">
+    <span><strong>Вы являетесь: </strong></span>
+    <div class="item">
+      <span>Физ.дицом</span>
+      <mat-slide-toggle (change)="onUserTypeChanged($event)">
+      </mat-slide-toggle>
+      <span>Юр.дицом</span>
+    </div>
+  </div>
+
+  <form (submit)="register()" [formGroup]="form">
+    <p class="person-info" *ngIf="form.controls['userType'].value === 1">Только необходимые данные</p>
+
+    <mat-form-field *ngIf="form.controls['userType'].value === 2">
+      <mat-select formControlName="legalPersonType">
+        <mat-option *ngFor="let lpt of legalPersonType" [value]="lpt.id">
+          {{lpt.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Фамилия, имя" formControlName="fullName" required>
+      <mat-error *ngIf="form.controls['fullName'].invalid">Это поле обязательно</mat-error>
+    </mat-form-field>
+
+    <div class="password-item">
+      <div class="item">
+        <label for="password">Пароль</label>
+        <mat-form-field appearance="outline">
+          <input formControlName="password" matInput id="password">
+          <mat-error *ngIf="form.controls['password'].invalid">Это поле обязательно</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="item">
+        <label for="confirm">Повторите пароль</label>
+        <mat-form-field appearance="outline">
+          <input formControlName="confirm" matInput id="confirm">
+          <mat-error *ngIf="form.controls['confirm'].hasError('required')">Это поле обязательно</mat-error>
+          <mat-error *ngIf="form.controls['confirm'].hasError('noMatch')">Пароль не совпадает</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <ng-container *ngIf="form.controls['userType'].value === 2">
+      <mat-form-field appearance="outline">
+        <input formControlName="organization" matInput placeholder="Организация" required>
+        <mat-error *ngIf="form.controls['organization'].invalid">Это поле обязательно</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input formControlName="inn" matInput placeholder="ИНН" required>
+        <mat-error *ngIf="form.controls['inn'].invalid">Это поле обязательно</mat-error>
+      </mat-form-field>
+    </ng-container>
+
+    <mat-form-field appearance="outline">
+      <input formControlName="email" matInput placeholder="Адрес эл.почты (важно)" required>
+      <mat-error *ngIf="form.controls['email'].hasError('required')">Это поле обязательно</mat-error>
+      <mat-error *ngIf="form.controls['email'].hasError('email')">Неправильный формат почты</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <input formControlName="phone" matInput placeholder="Контактный телефон (важно)" required>
+      <mat-error *ngIf="form.controls['phone'].invalid">Это поле обязательно</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select formControlName="region" placeholder="Регион" (selectionChange)="onRegionChanged($event)">
+        <mat-option *ngFor="let region of regions" [value]="region.id">
+          {{region.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select formControlName="city" placeholder="Город" [disabled]="cityList.length === 0">
+        <mat-option *ngFor="let city of cityList" [value]="city.id">
+          {{city.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="agreement">
+      <mat-checkbox formControlName="agree"></mat-checkbox>
+      <div class="item">
+        <div class="sub-item">
+          <span>Я принимаю условия</span>
+          <a href="">Публичного договора-оферты по оказанию полиграфических услуг</a>
+        </div>
+        <a href="">читать</a>
+      </div>
+    </div>
+  </form>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="register()">Зарегистрироваться</button>
+</div>

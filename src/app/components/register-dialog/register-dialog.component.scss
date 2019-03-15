@@ -1,0 +1,77 @@
+mat-form-field {
+  width: 100%;
+}
+
+.password-item {
+  .item {
+    display: flex;
+    justify-content: space-between;
+
+    mat-form-field {
+      width: auto;
+    }
+  }
+}
+
+.mat-dialog-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mat-dialog-content {
+  border-top: 1px solid #3f51b5;
+  border-bottom: 1px solid #3f51b5;
+
+  .user-type {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .item {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.person-info {
+  color: #9a9a9a;
+  text-align: center;
+}
+
+.agreement {
+  display: flex;
+
+  mat-checkbox {
+    margin-right: 14px;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+
+    .sub-item {
+      display: flex;
+      flex-direction: column;
+      margin-right: 20px;
+
+      a {
+        text-align: left;
+      }
+    }
+  }
+}
+
+::ng-deep {
+
+  mat-checkbox {
+    &.ng-touched, .ng-invalid {
+      .mat-checkbox-frame {
+        border-color: red;
+      }
+    }
+  }
+
+}

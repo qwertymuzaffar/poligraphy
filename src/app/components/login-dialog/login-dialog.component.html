@@ -1,0 +1,22 @@
+<div mat-dialog-title>
+  <img src="/assets/logo.png" alt="logo">
+  <button mat-icon-button (click)="dialogRef.close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div mat-dialog-content>
+  <p>Войти в личный кабинет</p>
+  <form (submit)="authorize()" [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <input formControlName="login" matInput placeholder="Адрес эл.почты или номер телефона" required>
+      <mat-error *ngIf="form.controls['login'].hasError('required')">Это поле обязательно</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <input formControlName="password" matInput placeholder="Пароль" required>
+      <mat-error *ngIf="form.controls['password'].invalid">Это поле обязательно</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="authorize()">Войти</button>
+</div>
